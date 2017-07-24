@@ -15,6 +15,7 @@ class PicturesController extends Controller
      * @var PictureService
      */
     private $pictures;
+
     /**
      * @var AdvertisementService
      */
