@@ -97,9 +97,9 @@ class AdvertisementsController extends Controller
      */
     public function destroy(Request $request, $id)
     {
-        $advertisement = $this->advertisements->delete($request->user(), $id);
+        $this->advertisements->delete($request->user(), $id);
 
-        return fractal($advertisement, new AdvertisementTransformer);
+        return $this->responseNotContent();
     }
 
     /**

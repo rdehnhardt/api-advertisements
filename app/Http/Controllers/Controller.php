@@ -38,4 +38,13 @@ class Controller extends BaseController
     {
         return response()->json(['message' => 'not-found'], $status);
     }
+
+    /**
+     * @param int $status
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function responseNotContent($status = 204)
+    {
+        return response()->json(null, $status);
+    }
 }
