@@ -3,6 +3,7 @@
 namespace App\Domain\Service;
 
 use App\Domain\Contracts\UsersContract;
+use App\Models\User;
 
 class UserService
 {
