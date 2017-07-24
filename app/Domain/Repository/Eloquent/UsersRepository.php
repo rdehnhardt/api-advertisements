@@ -27,11 +27,11 @@ class UsersRepository implements UsersContract
 
     /**
      * @param string $email
-     * @return \App\Models\User
+     * @return User
      */
     public function findByEmail($email)
     {
-        return User::whereEmail($email)->first();
+        return User::withTrashed()->whereEmail($email)->first();
     }
 
     /**
@@ -73,5 +73,15 @@ class UsersRepository implements UsersContract
     public function delete(User $user)
     {
         return $user->delete();
+    }
+
+    /**
+     * @param User $user
+     * @return \App\Models\User
+     * @throws \Exception
+     */
+    public function restore(User $user)
+    {
+        return $user->restore();
     }
 }

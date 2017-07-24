@@ -4,6 +4,7 @@ namespace App\Domain\Service;
 
 use App\Domain\Contracts\UsersContract;
 use App\Models\User;
+use DB;
 
 class UserService
 {
@@ -57,7 +58,15 @@ class UserService
      */
     public function create(array $params)
     {
-        return $this->repository->create($params);
+        return DB::transaction(function () use ($params) {
+            if ($user = $this->repository->findByEmail($params['email'], true)) {
+                $this->repository->restore($user);
+
+                return $user;
+            }
+
+            return $this->repository->create($params);
+        });
     }
 
     /**

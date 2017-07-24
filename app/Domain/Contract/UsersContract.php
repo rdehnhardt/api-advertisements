@@ -20,7 +20,7 @@ interface UsersContract
 
     /**
      * @param string $email
-     * @return \App\Models\User
+     * @return User
      */
     public function findByEmail($email);
 
@@ -45,4 +45,10 @@ interface UsersContract
      * @throws \Exception
      */
     public function delete(User $user);
+    /**
+     * @param User $user
+     * @return \App\Models\User
+     * @throws \Exception
+     */
+    public function restore(User $user);
 }
