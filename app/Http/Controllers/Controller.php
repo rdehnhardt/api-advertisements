@@ -36,7 +36,7 @@ class Controller extends BaseController
      */
     public function responseNotFound($status = 404)
     {
-        return response()->json(['message' => 'not-found'], $status);
+        return response()->json(null, $status);
     }
 
     /**

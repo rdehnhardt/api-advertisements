@@ -41,9 +41,14 @@ class PicturesController extends Controller
     public function index($uuid, Request $request)
     {
         $advertisement = $this->advertisements->getByUser($request->user(), $uuid);
-        $pictures = $this->pictures->fetchAll($advertisement);
 
-        return fractal($pictures, new PictureTransformer);
+        if ($advertisement) {
+            $pictures = $this->pictures->fetchAll($advertisement);
+
+            return fractal($pictures, new PictureTransformer);
+        }
+
+        return $this->responseNotFound();
     }
 
     /**
@@ -57,9 +62,14 @@ class PicturesController extends Controller
     public function store($uuid, PictureRequest $request)
     {
         $advertisement = $this->advertisements->getByUser($request->user(), $uuid);
-        $picture = $this->pictures->create($advertisement, $request->file('file'));
 
-        return fractal($picture, new PictureTransformer);
+        if ($advertisement) {
+            $picture = $this->pictures->create($advertisement, $request->file('file'));
+
+            return fractal($picture, new PictureTransformer);
+        }
+
+        return $this->responseNotFound();
     }
 
     /**
@@ -74,8 +84,13 @@ class PicturesController extends Controller
     public function destroy($uuid, $name, Request $request)
     {
         $advertisement = $this->advertisements->getByUser($request->user(), $uuid);
-        $picture = $this->pictures->delete($advertisement, $name);
 
-        return fractal($picture, new PictureTransformer);
+        if ($advertisement) {
+            $picture = $this->pictures->delete($advertisement, $name);
+
+            return fractal($picture, new PictureTransformer);
+        }
+
+        return $this->responseNotFound();
     }
 }
